@@ -12,6 +12,12 @@ describe('MoviesService', () => {
     }).compile();
 
     service = module.get<MoviesService>(MoviesService);
+
+    service.create({
+      title: 'test movie',
+      genres: ['test'],
+      year: 2002,
+    });
   });
 
   it('should be defined', () => {
@@ -27,11 +33,6 @@ describe('MoviesService', () => {
 
   describe('getOne', () => {
     it('should return a movie', () => {
-      service.create({
-        title: 'test movie',
-        genres: ['test'],
-        year: 2002,
-      });
       const movie = service.getOne(1);
       expect(movie).toBeDefined();
       expect(movie.id).toEqual(1);
@@ -49,11 +50,6 @@ describe('MoviesService', () => {
 
   describe('deleteOne', () => {
     it('deletes a movie', () => {
-      service.create({
-        title: 'test movie',
-        genres: ['test'],
-        year: 2002,
-      });
       const beforeDelete = service.getAll().length;
       service.deleteOne(1);
       const afterDelete = service.getAll().length;
@@ -73,9 +69,9 @@ describe('MoviesService', () => {
     it('should create a movie', () => {
       const beforeCreate = service.getAll().length;
       service.create({
-        title: 'test movie',
+        title: 'test2 movie',
         genres: ['test'],
-        year: 2002,
+        year: 2021,
       });
       const afterCreate = service.getAll().length;
       expect(afterCreate).toBeGreaterThan(beforeCreate);
@@ -84,11 +80,6 @@ describe('MoviesService', () => {
 
   describe('update', () => {
     it('should update a movie', () => {
-      service.create({
-        title: 'test movie',
-        genres: ['test'],
-        year: 2002,
-      });
       service.update(1, { title: 'Updated Test' });
       const movie = service.getOne(1);
       expect(movie.title).toEqual('Updated Test');
